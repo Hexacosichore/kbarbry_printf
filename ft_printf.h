@@ -6,7 +6,7 @@
 /*   By: kbarbry <kbarbry@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 10:05:40 by kbarbry           #+#    #+#             */
-/*   Updated: 2021/11/14 15:52:16 by kbarbry          ###   ########.fr       */
+/*   Updated: 2021/11/15 17:01:02 by kbarbry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 
 # include <stdarg.h>
 
-//ft_printf
+typedef struct s_comptor
+{
+	int	size;
+}				t_comptor;
 
 int	ft_printf(const char *str, ...);
 
