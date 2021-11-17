@@ -6,52 +6,46 @@
 #    By: kbarbry <kbarbry@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/04 09:52:18 by kbarbry           #+#    #+#              #
-#    Updated: 2021/11/14 16:39:44 by kbarbry          ###   ########.fr        #
+#    Updated: 2021/11/17 10:49:05 by kbarbry          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-BLU 		= \033[0;34m
-GRN 		= \033[0;32m
-RED 		= \033[0;31m
-RST 		= \033[0m
+RESET		=	\033[0m
+BPurple		=	\033[1;35m
+BGreen		=	\033[1;32m
+UYellow		=	\033[3;33m
 
-SRC			= ft_printf.c
-OBJ			= ${SRC:.c=.o}
+PART_1		=	ft_print_all.c \
+				ft_printf.c
 
-SRC_TESTER	= test.c
-OBJ_TESTER	= ${SRC_TESTER:.c=.o}
-INCLUDES	= -I./includes
-CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -I.
-CLIBFT		= -L./libft -lft
-HEADER		= ./ft_printf.h
-NAME		= libftprintf.a
+OBJ			=	${PART_1:.c=.o}
 
-all: ${NAME}
+CC			=	gcc
+FLAGS		=	-Wall -Werror -Wextra -I.
+NAME		=	libftprintf.a
 
-.c.o:
-	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
-	@echo "${BLU}[BUILD]${RST} ${<:.c=.o}"
+all:		${NAME}
 
-${NAME}:
-	@$(MAKE) bonus -C ./libft
-	@cp libft/libft.a $(NAME)
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $(SRC)
-	@ar -rcs $(NAME) $(OBJ)
-	@echo "${GRN}[DONE]${RST} $(NAME) has created"
+%.o:%.c ft_printf.h
+	@${CC} ${FLAGS} -c $< -o ${<:.c=.o}
+	@echo "${BPurple}[OBJ_FILE CREATED] :${RESET} ${<:.c=.o}${BGreen}\033[46G[✔]"
+
+${NAME}:	${OBJ}
+	@ar -rcs ${NAME} ${OBJ}
 
 clean:
-	@$(MAKE) clean -C ./libft
-	@rm -f ${OBJ} 
-	@echo "${GRN}[CLEAN]${RST} done"
+	@rm -f ${OBJ}
+	@echo "\n================================================"
+	@echo "\n${BGreen}[DONE] ${RESET}all object files has been cleaned.${BGreen}\033[46G[✔]"
 
 fclean: clean
-	@$(MAKE) fclean -C ./libft
 	@rm -f ${NAME}
-	@echo "${GRN}[FCLEAN]${RST} done"
+	@echo "${BGreen}[DONE] ${RESET}printf.a has been cleaned.${BGreen}\033[46G[✔]"
+	@echo "\n${UYellow}\033[15G[EVERYTHING IS CLEAN]${RESET}\n"
+	@echo "================================================\n"
 
-test:
-	${CC} ${CFLAGS} ${SRC_TESTER}  -L. -lftprintf -o tester
-	./tester
-	
-re: fclean all
+re:		fclean all
+	@echo "\n${UYellow}\033[17G[PRINTF IS READY]${RESET}\n"
+	@echo "================================================\n"
+
+.PHONY: clean fclean all re
